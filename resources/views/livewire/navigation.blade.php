@@ -6,7 +6,7 @@ height: calc(100vh - 4rem);
 display: block !important;
 }
 </style>
-<header class="bg-trueGray-700 sticky top-0" x-data="dropdown()">
+<header class="bg-trueGray-700 sticky z-50 top-0" x-data="dropdown()">
     <div class="container-menu flex items-center h-16 justify-between md:justify-start">
         <a :class="{'bg-opacity-100 text-orange-500': open}" x-on:click="show()" class="flex flex-col items-center justify-center order-last md:order-first px-6 sm:px-4 bg-white bg-opacity-25 text-white cursor-pointer font-semibold h-full">
             <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
@@ -121,7 +121,7 @@ display: block !important;
             <p class="text-trueGray-500 px-6 my-2">USUARIOS</p>
 
                 @livewire('cart-movil')
-                
+
                 @auth
             <a href="{{ route('profile.show') }}" class="py-2 px-4 text-sm flex items-center text-trueGray-500 hover:bg-orange-500
             hover:text-white">
