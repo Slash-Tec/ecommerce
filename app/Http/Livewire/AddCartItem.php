@@ -38,5 +38,6 @@ class AddCartItem extends Component
             'price' => $this->product->price,
             'weight' => 550,
         ]);
+        $this->emitTo('dropdown-cart', 'render');
     }
 }
