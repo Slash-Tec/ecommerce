@@ -2,10 +2,11 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Size;
 use Livewire\Component;
 
 class AddCartItemColor extends Component
-{   
+{
     public $product;
     public $colors;
     public $qty = 1;
@@ -18,10 +19,6 @@ class AddCartItemColor extends Component
     public function render()
     {
         return view('livewire.add-cart-item-color');
-    }
-    public function updatedColorId($value)
-    {
-       $this->quantity = $this->product->colors->find($value)->pivot->quantity;
     }
     public function decrement()
     {
