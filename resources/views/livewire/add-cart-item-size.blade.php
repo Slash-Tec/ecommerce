@@ -8,7 +8,11 @@
         @endforeach
         </select>
     </div>
-    <div class="mt-2">
+    <p class="text-gray-700 my-4">
+        <span class="font-semibold text-lg">Stock disponible:</span> {{ $product->stock }}
+    </p>
+    <div class="flex">
+    <div class="mr-4">
     <p class="text-xl text-gray-700">Color:</p>
         <select wire:model="color_id" class="form-control w-full">
             <option value="" selected disabled>Seleccione un color</option>
@@ -16,5 +20,6 @@
                 <option value="{{$color->id}}">{{ __(ucfirst($color->name)) }}</option>
             @endforeach
         </select>
+    </div>
     </div>
 </div>

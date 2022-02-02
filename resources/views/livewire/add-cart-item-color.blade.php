@@ -1,15 +1,24 @@
 <div x-data>
     <p class="text-xl text-gray-700">Color:</p>
-    <select wire:model="color_id" class="form-control w-full">
-        <option value="" selected disabled>Seleccionar un color</option>
-        @foreach ($colors as $color)
-            <option value="{{$color->id}}">{{ __(ucfirst($color->name)) }}</option>
-        @endforeach
-    </select>
-    <div class="flex mt-4">
+    <label>
+        <select wire:model="color_id" class="form-control w-full">
+            <option value="" selected disabled>Seleccionar un color</option>
+            @foreach ($colors as $color)
+                <option value="{{$color->id}}">{{ __(ucfirst($color->name)) }}</option>
+            @endforeach
+        </select>
+    </label>
+    <p class="text-gray-700 my-4">
+        <span class="font-semibold text-lg">Stock disponible:</span>
+        @if($quantity)
+            {{ $quantity }}
+        @else
+            {{ $product->stock }}
+        @endif
+    </p>
+    <div class="flex">
         <div class="mr-4">
             <x-jet-secondary-button
-            disabled
             x-bind:disabled="$wire.qty <= 1"
             wire:loading.attr="disabled"
             wire:target="decrement"
@@ -26,7 +35,7 @@
             </x-jet-secondary-button>
         </div>
         <div class="flex-1">
-            <x-button x-bind:disabled="!$wire.quantity" wire:click="addItem" wire:loading.attr="disabled" wire:target="addItem" class="w-full" color="orange">
+            <x-button x-bind:disabled="!$wire.quantity" x-bind:disabled="$wire.qty > $wire.quantity" wire:click="addItem" wire:loading.attr="disabled" wire:target="addItem" class="w-full" color="orange">
                 Agregar al carrito de compras
             </x-button>
         </div>

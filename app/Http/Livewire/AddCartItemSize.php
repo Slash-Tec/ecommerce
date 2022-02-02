@@ -20,8 +20,7 @@ class AddCartItemSize extends Component
 
     public function mount()
     {
-        $this->sizes = $this->product->sizes;
-        $this->options['image'] = Storage::url($this->product->images->first()->url);
+        $this->sizes = $this->product->sizes;        $this->options['image'] = Storage::url($this->product->images->first()->url);
     }
     public function updatedSizeId($value)
     {
@@ -33,8 +32,9 @@ class AddCartItemSize extends Component
     {
         $size = Size::find($this->size_id);
         $color = $size->colors->find($value);
-        $this->quantity = $color->pivot->quantity;
+        $this->quantity = qty_available($this->product->id, $color->id, $size->id);
         $this->options['color'] = $color->name;
+        $this->options['color_id'] = $color->id;
     }
     public function decrement()
     {
@@ -54,6 +54,10 @@ class AddCartItemSize extends Component
             'weight' => 550,
             'options' => $this->options,
         ]);
+        $this->quantity = qty_available($this->product->id, $this->color_id, $this->size_id);
+
+        $this->reset('qty');
+
         $this->emitTo('dropdown-cart', 'render');
     }
     public function render()
