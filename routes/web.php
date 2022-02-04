@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\ProductsController;
@@ -24,3 +25,4 @@ Route::get('products/{product}', [ProductsController::class, 'show'])->name('pro
 Route::get('/deletecart', function () {
     \Cart::destroy();
 });
+Route::get('search', SearchController::class)->name('search');
