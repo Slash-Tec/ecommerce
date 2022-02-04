@@ -36,7 +36,7 @@
             @if(Cart::count())
                 <div class="px-3 py-2" >
                     <p class="text-lg text-gray-700 mt-2 mb-3"><span class="font-bold">Total:</span> {{ Cart::subtotal() }} &euro;</p>
-                    <x-button-link class="w-full" color="orange">
+                    <x-button-link href="{{ route('shopping-cart') }}" class="w-full" color="orange">
                         Ir al carrito de compras
                     </x-button-link>
                 </div>
