@@ -1,4 +1,4 @@
-<header class="bg-trueGray-700 sticky z-50 top-0" x-data="dropdown()">
+<header class="bg-trueGray-700 sticky z-50 top-0" style="z-index: 900" x-data="dropdown()">
     <div class="container-menu flex items-center h-16 justify-between md:justify-start">
         <a dusk="categorias" :class="{'bg-opacity-100 text-orange-500': open}"
            x-on:click="show()"
