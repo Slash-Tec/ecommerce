@@ -3,12 +3,10 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use App\Models\Product;
 
 class CategoryProducts extends Component
 {   
     public $category;
-
     public $products = [];
     public function loadProducts()
     {

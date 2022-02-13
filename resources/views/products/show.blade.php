@@ -30,8 +30,6 @@
 				<p class="text-lg font-semibold text-lime-600">Se hacen envíos solo a la península</p>
 				<p>Recíbelo el {{ Date::now()->addDay(7)->locale('es')->format('l j F') }}</p>
 			</div>
-			</div>
-			</div>
 			@if ($product->subcategory->size)
 			@livewire('add-cart-item-size', ['product' => $product])
 			@elseif($product->subcategory->color)
@@ -39,6 +37,8 @@
 			@else
 			@livewire('add-cart-item', ['product' => $product])
 			@endif
+			</div>
+			</div>
 			</div>
 		</div>
 	</div>

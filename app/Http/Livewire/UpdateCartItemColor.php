@@ -10,7 +10,6 @@ class UpdateCartItemColor extends Component
 {
     public $rowId;
     public $qty, $quantity;
-
     public function mount()
     {
         $item = Cart::get($this->rowId);

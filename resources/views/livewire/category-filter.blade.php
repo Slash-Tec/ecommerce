@@ -1,4 +1,4 @@
-<div>
+
     <div class="bg-white rounded-lg shadow-lg mb-6">
         <div class="px-6 py-2 flex justify-between items-center">
             <h1 class="font-semibold text-gray-700 uppercase">{{ $category->name }}</h1>
@@ -7,7 +7,6 @@
                 <i class="fas fa-th-list p-3 cursor-pointer {{ $view == 'list' ? 'text-orange-500' : '' }}" wire:click="$set('view', 'list')"></i>
             </div>
         </div>
-    </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             <aside>
             <h2 class="font-semibold text-center mb-2">Subcategorías</h2>

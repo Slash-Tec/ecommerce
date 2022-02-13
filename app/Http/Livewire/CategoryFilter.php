@@ -9,9 +9,10 @@ use Livewire\WithPagination;
 
 class CategoryFilter extends Component
 {
-    use WithPagination;
-
+    
     public $category, $subcategoria, $marca;
+    public $view = 'grid';
+    use WithPagination;
 
     public function render()
     {
@@ -20,7 +21,7 @@ class CategoryFilter extends Component
     });
         if ($this->subcategoria) {
         $productsQuery = $productsQuery->whereHas('subcategory', function(Builder $query){
-        $query->where('name', $this->subcategoria);
+            $query->where('name', $this->subcategoria);
     });
     }
         if ($this->marca) {
@@ -35,5 +36,4 @@ class CategoryFilter extends Component
     {
        $this->reset(['subcategoria', 'marca']);
     }
-    public $view = 'grid';
 }

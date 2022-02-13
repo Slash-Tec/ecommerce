@@ -17,6 +17,7 @@ class DepartmentFactory extends Factory
             'name' => $this->faker->word(),
         ];
     }
+    /**
     public function run()
     {
     Department::factory(8)->create()->each(function(Department $department){
@@ -28,5 +29,5 @@ class DepartmentFactory extends Factory
                 ]);
             });
         });
-    }
+    }**/
 }

@@ -18,19 +18,16 @@ class UpdateCartItem extends Component
     public function decrement()
     {
         $this->qty--;
-
         Cart::update($this->rowId, $this->qty);
-
         $this->emit('render');
     }
     public function increment()
     {
         $this->qty++;
-
         Cart::update($this->rowId, $this->qty);
-
         $this->emit('render');
     }
+
     public function render()
     {
         return view('livewire.update-cart-item');
