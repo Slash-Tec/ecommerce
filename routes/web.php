@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SearchController;
+use App\Http\Livewire\Admin\ShowProducts;
 use App\Http\Livewire\CreateOrder;
 use App\Http\Livewire\PaymentOrder;
 use App\Http\Livewire\ShoppingCart;
@@ -43,3 +44,7 @@ Route::get('prueba', function () {
 }
 return "Completado con éxito";
 });
+Route::get('products/create', CreateProduct::class)->name('admin.products.create');
+Route::get('/', ShowProducts::class)->name('admin.index');
+Route::get('products/create', function () {})->name('admin.products.create');
+Route::get('products/{product}/edit', function () {})->name('admin.products.edit');

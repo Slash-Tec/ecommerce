@@ -6,7 +6,7 @@ use App\Models\Color;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Livewire\Component;
 
-class UpdateCartItemColor extends Component
+class UpdateCartItemSize extends Component
 {
     public $rowId;
     public $qty, $quantity;
