@@ -16,8 +16,10 @@ class CreateColorProductTable extends Migration
         Schema::create('color_product', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('color_id')->references('id')->on('colors');
-            $table->foreignId('product_id')->references('id')->on('products');
+            $table->foreignId('color_id')->references('id')->on('colors')
+                ->onDelete('cascade');
+            $table->foreignId('product_id')->references('id')->on('products')
+                ->onDelete('cascade');
 
             $table->integer('quantity');
 
