@@ -12,6 +12,8 @@ use Livewire\Component;
 
 class EditProduct extends Component
 {
+    protected $listeners = ['refreshProduct', 'delete'];
+
     protected $rules = [
         'category_id' => 'required',
         'subcategory_id' => 'required',
@@ -68,5 +70,24 @@ class EditProduct extends Component
         $this->validate();
         $this->product->save();
         $this->emit('saved');
+    }
+    public function deleteImage(Image $image)
+    {
+        Storage::disk('public')->delete([$image->url]);
+        $image->delete();
+        $this->product = $this->product->fresh();
+    }
+    public function refreshProduct()
+    {
+        $this->product = $this->product->fresh();
+    }
+    public function delete(){
+        $images = $this->product->images;
+        foreach ($images as $image) {
+            Storage::disk('public')->delete($image->url);
+            $image->delete();
+        }
+        $this->product->delete();
+        return redirect()->route('admin.index');
     }
 }
