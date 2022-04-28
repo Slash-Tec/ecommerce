@@ -2,11 +2,17 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Brand;
+use App\Models\Category;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Livewire\Component;
-use WithFileUploads;
+use Livewire\WithFileUploads;
 
 class CreateCategory extends Component
 {
+    use WithFileUploads;
+
     public $createForm = [
         'name' => null,
         'slug' => null,
@@ -23,11 +29,6 @@ class CreateCategory extends Component
         'image' => null,
         'brands' => [],
     ];
-
-    public $category;
-    public $editImage;
-
-    public $listeners = ['delete'];
 
     protected $rules = [
         'createForm.name' => 'required',
@@ -51,36 +52,29 @@ class CreateCategory extends Component
     ];
 
     public $brands, $categories, $image, $image2;
-    
+    public $category;
+    public $listeners = ['delete'];
+    public $editImage;
+
+    public function updatedCreateFormName($value)
+    {
+        $this->createForm['slug'] = Str::slug($value);
+    }
+
+    public function updatedEditFormName($value)
+    {
+        $this->editForm['slug'] = Str::slug($value);
+    }
+
     public function mount()
     {
         $this->getBrands();
         $this->getCategories();
         $this->image = 1;
     }
-    
     public function getBrands()
     {
         $this->brands = Brand::all();
-    }
-
-    public function save()
-    {
-        $this->validate();
-        $image = $this->createForm['image']->store('categories', 'public');
-        $category = Category::create([ 'name' => $this->createForm['name'], 'slug' => $this->createForm['slug'], 'icon' => $this->createForm['icon'], 'image' => $image
-        ]);
-        $category->brands()->attach($this->createForm['brands']);
-        $this->image = 2;
-        $this->reset('createForm');
-
-        $this->getCategories();
-        $this->emit('saved');
-    }
-
-    public function updatedCreateFormName($value)
-    {
-        $this->createForm['slug'] = Str::slug($value);
     }
 
     public function getCategories()
@@ -88,21 +82,12 @@ class CreateCategory extends Component
         $this->categories = Category::all();
     }
 
-    public function delete(Category $category)
-    {
-        $category->brands()->detach();
-        $category->delete();
-        $this->getCategories();
-    }
-
     public function edit(Category $category)
     {
-        $this->image = rand();
         $this->image2 = rand();
         $this->reset(['editImage']);
         $this->resetValidation();
         $this->category = $category;
-
         $this->editForm['open'] = true;
         $this->editForm['name'] = $category->name;
         $this->editForm['slug'] = $category->slug;
@@ -124,8 +109,8 @@ class CreateCategory extends Component
         $this->validate($rules);
 
         if ($this->editImage) {
-        Storage::disk('public')->delete($this->editForm['image']);
-        $this->editForm['image'] = $this->editImage->store('categories', 'public');
+            Storage::disk('public')->delete($this->editForm['image']);
+            $this->editForm['image'] = $this->editImage->store('categories', 'public');
         }
         $this->category->update($this->editForm);
         $this->category->brands()->sync($this->editForm['brands']);
@@ -133,10 +118,31 @@ class CreateCategory extends Component
         $this->getCategories();
     }
 
-    public function updatedEditFormName($value)
+    public function save()
     {
-        $this->editForm['slug'] = Str::slug($value);
+        $this->validate();
+        $image = $this->createForm['image']->store('categories', 'public');
+        $category = Category::create([
+            'name' => $this->createForm['name'],
+            'slug' => $this->createForm['slug'],
+            'icon' => $this->createForm['icon'],
+            'image' => $image
+        ]);
+        $category->brands()->attach($this->createForm['brands']);
+        $this->image = 2;
+        $this->reset('createForm');
+        $this->getCategories();
+        $this->emit('saved');
+
     }
+
+    public function delete(Category $category)
+    {
+        $category->brands()->detach();
+        $category->delete();
+        $this->getCategories();
+    }
+
 
     public function render()
     {

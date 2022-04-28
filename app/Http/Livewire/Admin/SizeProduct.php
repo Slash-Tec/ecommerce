@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Color;
+use App\Models\Size;
 use Livewire\Component;
 
 class SizeProduct extends Component
@@ -9,7 +11,7 @@ class SizeProduct extends Component
     public $product, $name, $size;
     public $open = false;
     public $name_edit;
-    
+
     protected $rules = [
         'name' => 'required'
     ];

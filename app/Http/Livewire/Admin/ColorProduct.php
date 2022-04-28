@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Color;
 use Livewire\Component;
 use App\Models\ColorProduct as TbPivot;
 
@@ -30,7 +31,7 @@ class ColorProduct extends Component
     }
     public function save(){
         $this->validate();
-    
+
         $pivot = TbPivot::where('color_id', $this->color_id)
             ->where('product_id', $this->product->id)
             ->first();
@@ -45,7 +46,7 @@ class ColorProduct extends Component
         ]);
         }
         $this->reset(['color_id', 'quantity']);
-        
+
         $this->emit('saved');
 
         $this->product = $this->product->fresh();
@@ -61,11 +62,11 @@ class ColorProduct extends Component
     {
         $this->pivot->color_id = $this->pivot_color_id;
         $this->pivot->quantity = $this->pivot_quantity;
-        
+
         $this->pivot->save();
-        
+
         $this->product = $this->product->fresh();
-        
+
         $this->open = false;
     }
     public function delete(TbPivot $pivot)

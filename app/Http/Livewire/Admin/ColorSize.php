@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Color;
 use Livewire\Component;
 use App\Models\ColorSize as TbPivot;
 
