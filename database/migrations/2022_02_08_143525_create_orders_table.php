@@ -24,6 +24,7 @@ class CreateOrdersTable extends Migration
             $table->float('shipping_cost');
             $table->float('total');
             $table->json('content');
+            $table->json('envio')->nullable();
             $table->foreignId('department_id')->nullable()->references('id')->on('departments');
             $table->foreignId('city_id')->nullable()->references('id')->on('cities');
             $table->foreignId('district_id')->nullable()->references('id')->on('districts');
