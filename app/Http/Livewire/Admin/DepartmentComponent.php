@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Department;
 use Livewire\Component;
 
 class DepartmentComponent extends Component
@@ -9,7 +10,7 @@ class DepartmentComponent extends Component
     public $departments, $department;
 
     protected $listeners = ['delete'];
-    
+
     public $createForm = [
         'name' => ''
     ];
@@ -18,7 +19,7 @@ class DepartmentComponent extends Component
         'open' => false,
         'name' => ''
     ];
-    
+
     protected $validationAttributes = [
         'createForm.name' => 'nombre'
     ];
@@ -57,7 +58,7 @@ class DepartmentComponent extends Component
         $this->reset('editForm');
         $this->getDepartments();
     }
-    
+
     public function delete(Department $department)
     {
         $department->delete();

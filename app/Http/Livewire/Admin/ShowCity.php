@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\City;
+use App\Models\District;
 use Livewire\Component;
 
 class ShowCity extends Component
@@ -9,7 +11,7 @@ class ShowCity extends Component
     public $city, $districts, $district;
 
     protected $listeners = ['delete'];
-    
+
     public $createForm = [
         'name' => '',
     ];
@@ -28,12 +30,12 @@ class ShowCity extends Component
         $this->city = $city;
         $this->getDistricts();
     }
-    
+
     public function getDistricts()
     {
         $this->districts = District::where('city_id', $this->city->id)->get();
     }
-    
+
     public function save()
     {
         $this->validate([
