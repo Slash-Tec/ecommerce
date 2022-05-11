@@ -27,5 +27,7 @@
         <server name="QUEUE_CONNECTION" value="sync"/>
         <server name="SESSION_DRIVER" value="array"/>
         <server name="TELESCOPE_ENABLED" value="false"/>
+        <env name="DB_DATABASE" value="ecommerce_test"/>
+        <env name="DB_DATABASE" value="ecommerce_dusk"/>
     </php>
 </phpunit>

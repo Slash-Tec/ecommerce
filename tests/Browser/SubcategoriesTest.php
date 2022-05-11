@@ -2,60 +2,113 @@
 
 namespace Tests\Browser;
 
-use App\Models\Category;
-use App\Models\Subcategory;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Str;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
-use Tests\CreateData;
 
 class SubcategoriesTest extends DuskTestCase
 {
-
-    use DatabaseMigrations;
-    use RefreshDatabase;
-    use CreateData;
+    /** @test */
+    public function it_shows_the_subcategories_linked_to_phone_category()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/')
+                ->assertSee('Categorías')
+                ->click('@categorias')
+                ->assertSee('Celulares y tablets')
+                ->mouseover('ul.bg-white > li:nth-of-type(1) > a')
+                ->assertSee('Subcategorías')
+                ->assertSee('Celulares y smartphones')
+                ->assertSee('Accesorios para celulares')
+                ->assertSee('Smartwatches')
+                ->assertDontSee('Audios')
+                ->assertDontSee('Xbox')
+                ->assertDontSee('Almacenamiento')
+                ->assertDontSee('Relojes')
+                ->screenshot('phones-test');
+        });
+    }
 
     /** @test */
-    public function it_shows_the_subcategories_linked_to_a_category()
+    public function it_shows_the_subcategories_linked_to_tv_category()
     {
-        $category1 = $this->createCategory();
-
-        $category2 = $this->createCustomCategory("Tv, audio y vídeo");
-
-        $subcategory1 = $this->createSubcategory();
-
-        $subcategory2 = $this->createCustomSubcategory(1,'Tablets');
-
-        $hiddenSubcategory1 = $this->createCustomSubcategory(2,'Video');
-
-        $hiddenSubcategory2 = $this->createCustomSubcategory(2,'Audio');
-
-        $this->browse(function (Browser $browser) use ($category1,$category2, $subcategory1, $subcategory2,$hiddenSubcategory1,$hiddenSubcategory2){
+        $this->browse(function (Browser $browser) {
             $browser->visit('/')
-                ->pause(100)
                 ->assertSee('Categorías')
-                ->pause(100)
                 ->click('@categorias')
-                ->pause(100)
-                ->assertSee($category1->name)
-                ->pause(100)
-                ->mouseover('ul.bg-white > li:nth-of-type(1) > a')
-                ->pause(100)
+                ->assertSee('TV, audio y video')
+                ->mouseover('ul.bg-white > li:nth-of-type(2) > a')
                 ->assertSee('Subcategorías')
-                ->pause(100)
-                ->assertSee($subcategory1->name)
-                ->pause(100)
-                ->assertSee($subcategory2->name)
-                ->pause(100)
-                ->assertSee($category2->name)
-                ->pause(100)
-                ->assertDontSee($hiddenSubcategory1->name)
-                ->pause(100)
-                ->assertDontSee($hiddenSubcategory2->name)
-                ->screenshot('subcategory-test');
+                ->assertSee('TV y audio')
+                ->assertSee('Audios')
+                ->assertSee('Audio para autos')
+                ->assertDontSee('Xbox')
+                ->assertDontSee('Almacenamiento')
+                ->assertDontSee('Relojes')
+                ->screenshot('tvs-test');
+        });
+    }
+
+    /** @test */
+    public function it_shows_the_subcategories_linked_to_games_category()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/')
+                ->assertSee('Categorías')
+                ->click('@categorias')
+                ->assertSee('Consola y videojuegos')
+                ->mouseover('ul.bg-white > li:nth-of-type(3) > a')
+                ->assertSee('Subcategorías')
+                ->assertSee('Xbox')
+                ->assertSee('Play Station')
+                ->assertSee('Videojuegos para PC')
+                ->assertSee('Nintendo')
+                ->assertDontSee('Audios')
+                ->assertDontSee('Almacenamiento')
+                ->assertDontSee('Relojes')
+                ->screenshot('videogames-test');
+        });
+    }
+
+    /** @test */
+    public function it_shows_the_subcategories_linked_to_pc_category()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/')
+                ->assertSee('Categorías')
+                ->click('@categorias')
+                ->assertSee('Computación')
+                ->mouseover('ul.bg-white > li:nth-of-type(4) > a')
+                ->assertSee('Subcategorías')
+                ->assertSee('Portátiles')
+                ->assertSee('PC escritorio')
+                ->assertSee('Almacenamiento')
+                ->assertSee('Accesorios computadoras')
+                ->assertDontSee('Audios')
+                ->assertDontSee('Xbox')
+                ->assertDontSee('Relojes')
+                ->screenshot('videogames-test');
+        });
+    }
+
+    /** @test */
+    public function it_shows_the_subcategories_linked_to_fashion_category()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/')
+                ->assertSee('Categorías')
+                ->click('@categorias')
+                ->assertSee('Moda')
+                ->mouseover('ul.bg-white > li:nth-of-type(5) > a')
+                ->assertSee('Subcategorías')
+                ->assertSee('Mujeres')
+                ->assertSee('Hombres')
+                ->assertSee('Lentes')
+                ->assertSee('Relojes')
+                ->assertDontSee('Audios')
+                ->assertDontSee('Xbox')
+                ->assertDontSee('Almacenamiento')
+                ->screenshot('fashion-test');
         });
     }
 }

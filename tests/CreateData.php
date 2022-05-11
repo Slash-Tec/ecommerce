@@ -51,4 +51,16 @@ trait CreateData
             ]
         );
     }
+
+    public function createCategories()
+    {
+        return [
+            'category1' => $this->createCategory(),
+            'category2' => $this->createCustomCategory('TV, audio y video'),
+            'category3' => $this->createCustomCategory('Consola y videojuegos'),
+            'category4' => $this->createCustomCategory('Computación'),
+            'category5' => $this->createCustomCategory('Moda'),
+        ];
+    }
 }
+

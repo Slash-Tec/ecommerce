@@ -2,14 +2,10 @@
 
 namespace Tests;
 
-use App\Models\Category;
-use App\Models\Subcategory;
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
-use Illuminate\Support\Str;
 use Laravel\Dusk\TestCase as BaseTestCase;
-use Illuminate\Database\Eloquent\Factories\Factory;
 
 abstract class DuskTestCase extends BaseTestCase
 {
