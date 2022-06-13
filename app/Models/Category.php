@@ -4,31 +4,29 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Category extends Model
 {
     use HasFactory;
     protected $fillable = ['name', 'slug', 'image', 'icon'];
 
-    public function subcategories(): HasMany
+    public function subcategories()
     {
         return $this->hasMany(Subcategory::class);
     }
 
-    public function brands(): BelongsToMany
+    public function brands()
     {
         return $this->belongsToMany(Brand::class);
     }
 
-    public function products(): HasManyThrough
+    public function products()
     {
         return $this->hasManyThrough(Product::class, Subcategory::class);
     }
-    public function getRouteKeyName(): string
+
+    public function getRouteKeyName()
     {
-       return 'slug';
+        return 'slug';
     }
 }

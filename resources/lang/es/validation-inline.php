@@ -21,6 +21,7 @@ return [
     'alpha_dash'           => 'Este campo solo puede contener letras, números, guiones y guiones bajos.',
     'alpha_num'            => 'Este campo solo puede contener letras y números.',
     'array'                => 'Este campo debe ser un array (colección).',
+    'attached'             => 'Este campo ya se adjuntó.',
     'before'               => 'Debe ser una fecha antes de :date.',
     'before_or_equal'      => 'Debe ser una fecha anterior o igual a :date.',
     'between'              => [
@@ -44,7 +45,6 @@ return [
     'distinct'             => 'El campo tiene un valor duplicado.',
     'email'                => 'No es un correo válido.',
     'ends_with'            => 'Debe finalizar con uno de los siguientes valores: :values.',
-    'enum'                 => 'El valor seleccionado es inválido.',
     'exists'               => 'El valor seleccionado es inválido.',
     'file'                 => 'El campo debe ser un archivo.',
     'filled'               => 'Este campo debe tener un valor.',
@@ -80,7 +80,6 @@ return [
         'numeric' => 'El valor debe ser menor o igual que :value.',
         'string'  => 'El texto debe ser menor o igual de :value caracteres.',
     ],
-    'mac_address'          => 'El valor debe ser una dirección MAC válida.',
     'max'                  => [
         'array'   => 'El contenido no debe tener más de :max elementos.',
         'file'    => 'El tamaño del archivo no debe ser mayor a :max kilobytes.',
@@ -106,6 +105,7 @@ return [
     'prohibited_unless'    => 'Este campo está prohibido a menos que :other sea :values.',
     'prohibits'            => 'Este campo prohibe que :other esté presente.',
     'regex'                => 'Este formato es inválido.',
+    'relatable'            => 'Este campo no se puede asociar con este recurso.',
     'required'             => 'Este campo es requerido.',
     'required_if'          => 'Este campo es requerido cuando :other es :value.',
     'required_unless'      => 'Este campo es requerido a menos que :other esté en :values.',

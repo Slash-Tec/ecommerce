@@ -10,26 +10,27 @@
         "production": "mix --production"
     },
     "devDependencies": {
-        "@popperjs/core": "^2.10.2",
         "@tailwindcss/forms": "^0.4.0",
         "@tailwindcss/typography": "^0.5.0",
         "alpinejs": "^3.0.6",
         "axios": "^0.21",
-        "bootstrap": "^5.1.3",
-        "laravel-mix": "^6.0.41",
+        "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
         "postcss-import": "^14.0.1",
-        "resolve-url-loader": "^3.1.2",
-        "sass": "^1.32.11",
-        "sass-loader": "^11.0.1",
-        "tailwindcss": "^3.0.0",
-        "vue": "^2.6.12",
-        "vue-loader": "^15.9.8",
-        "vue-template-compiler": "^2.6.12"
+        "tailwindcss": "^3.0.0"
     },
     "dependencies": {
-        "@ckeditor/ckeditor5-build-classic": "^33.0.0",
-        "sweetalert2": "^11.4.8"
+        "@ckeditor/ckeditor5-build-classic": "^31.1.0",
+        "@fortawesome/fontawesome-free": "^6.0.0",
+        "dropzone": "^5.9.3",
+        "flatpickr": "^4.6.9",
+        "flexslider": "^2.7.2",
+        "gijgo": "^1.9.13",
+        "glider-js": "^1.7.7",
+        "jquery": "^3.6.0",
+        "moment": "^2.29.1",
+        "pikaday": "^1.8.2",
+        "sweetalert2": "^11.3.10"
     }
 }

@@ -16,13 +16,11 @@ class ShowDepartment extends Component
         'name' => '',
         'cost' => null
     ];
-
     public $editForm = [
         'open' => false,
         'name' => '',
         'cost' => null
     ];
-
     protected $validationAttributes = [
         'createForm.name' => 'nombre',
         'createForm.cost' => 'costo'
@@ -36,7 +34,6 @@ class ShowDepartment extends Component
     public function getCities(){
         $this->cities = City::where('department_id', $this->department->id)->get();
     }
-
     public function save(){
         $this->validate([
             "createForm.name" => 'required',
@@ -47,14 +44,12 @@ class ShowDepartment extends Component
         $this->getCities();
         $this->emit('saved');
     }
-
     public function edit(City $city){
         $this->city = $city;
         $this->editForm['open'] = true;
         $this->editForm['name'] = $city->name;
         $this->editForm['cost'] = $city->cost;
     }
-
     public function update(){
         $this->city->name = $this->editForm['name'];
         $this->city->cost = $this->editForm['cost'];
@@ -62,7 +57,6 @@ class ShowDepartment extends Component
         $this->reset('editForm');
         $this->getCities();
     }
-
     public function delete(City $city){
         $city->delete();
         $this->getCities();

@@ -2,11 +2,18 @@
 
 namespace Tests;
 
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Image;
+use App\Models\Product;
+use App\Models\Subcategory;
+use App\Models\User;
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
+use Illuminate\Support\Str;
 use Laravel\Dusk\TestCase as BaseTestCase;
-
+use Illuminate\Database\Eloquent\Factories\Factory;
 abstract class DuskTestCase extends BaseTestCase
 {
     use CreatesApplication;
@@ -41,6 +48,7 @@ abstract class DuskTestCase extends BaseTestCase
                 'disable-gpu',
                 '-no-sandbox',
                 '--disable-dev-shm-usage',
+                '--window-size=1920,1080',
             ]);
     })->all());
 

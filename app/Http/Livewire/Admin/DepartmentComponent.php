@@ -10,20 +10,16 @@ class DepartmentComponent extends Component
     public $departments, $department;
 
     protected $listeners = ['delete'];
-
     public $createForm = [
         'name' => ''
     ];
-
     public $editForm = [
         'open' => false,
         'name' => ''
     ];
-
     protected $validationAttributes = [
         'createForm.name' => 'nombre'
     ];
-
     public function mount()
     {
         $this->getDepartments();
@@ -32,7 +28,6 @@ class DepartmentComponent extends Component
     {
         $this->departments = Department::all();
     }
-
     public function save()
     {
         $this->validate([
@@ -43,14 +38,12 @@ class DepartmentComponent extends Component
         $this->getDepartments();
         $this->emit('saved');
     }
-
     public function edit(Department $department)
     {
         $this->department = $department;
         $this->editForm['open'] = true;
         $this->editForm['name'] = $department->name;
     }
-
     public function update()
     {
         $this->department->name = $this->editForm['name'];
@@ -58,12 +51,12 @@ class DepartmentComponent extends Component
         $this->reset('editForm');
         $this->getDepartments();
     }
-
     public function delete(Department $department)
     {
         $department->delete();
         $this->getDepartments();
     }
+
 
     public function render()
     {

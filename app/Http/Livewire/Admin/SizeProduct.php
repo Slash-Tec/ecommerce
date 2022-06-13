@@ -2,19 +2,30 @@
 
 namespace App\Http\Livewire\Admin;
 
-use App\Models\Color;
 use App\Models\Size;
 use Livewire\Component;
 
 class SizeProduct extends Component
 {
+
     public $product, $name, $size;
     public $open = false;
     public $name_edit;
 
+
+    protected $listeners = ['delete'];
+
     protected $rules = [
         'name' => 'required'
     ];
+
+    public function edit(Size $size)
+    {
+        $this->open = true;
+        $this->size = $size;
+        $this->name_edit = $size->name;
+
+    }
 
     public function save()
     {
@@ -30,22 +41,8 @@ class SizeProduct extends Component
                 'name' => $this->name
             ]);
         }
-
         $this->product = $this->product->fresh();
         $this->reset('name');
-    }
-    public function edit(Size $size)
-    {
-        $this->open = true;
-        $this->size = $size;
-        $this->name_edit = $size->name;
-    }
-
-    public function render()
-    {
-        $sizes = $this->product->sizes;
-
-        return view('livewire.admin.size-product', compact('sizes'));
     }
 
     public function update()
@@ -53,7 +50,6 @@ class SizeProduct extends Component
         $this->validate([
             'name_edit' => 'required',
         ]);
-
         $this->size->name = $this->name_edit;
         $this->size->save();
         $this->product = $this->product->fresh();
@@ -65,8 +61,11 @@ class SizeProduct extends Component
         $size->delete();
         $this->product = $this->product->fresh();
     }
-    public function colors()
+
+    public function render()
     {
-        return $this->belongsToMany(Color::class)->withPivot('quantity', 'id');
+        $sizes = $this->product->sizes;
+
+        return view('livewire.admin.size-product', compact('sizes'));
     }
 }

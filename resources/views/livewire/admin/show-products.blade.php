@@ -14,7 +14,7 @@
             <x-jet-input class="w-full"
                          wire:model="search"
                          type="text"
-                         placeholder="Introduzca el nombre del producto a buscar"></x-jet-input>
+                         placeholder="Introduzca el nombre del producto a buscar" />
         </div>
         @if($products->count())
                     <table class="min-w-full divide-y divide-gray-200">
@@ -43,7 +43,7 @@
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 h-10 w-10 object-cover">
-                                        <img class="h-10 w-10 rounded-full" src="{{ $product->images->count() ? Storage::url($product->images->first()->url) : 'img/default.jpg'  }}" alt="">
+                                        <img class="h-10 w-10 rounded-full" src="{{ $product->images->count() ? Storage::url($product->images->first()->url) : 'img/default.jpg' }}" alt="">
                                     </div>
                                     <div class="ml-4">
                                         <div class="text-sm font-medium text-gray-900">
@@ -84,3 +84,6 @@
             @endif
         </x-table-responsive>
             </div>
+        </div>
+    </div>
+</div>

@@ -18,16 +18,16 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->call(function () {
-        $orders = Order::where('status', 1)->where('created_at','<',now()->subMinutes(10))->get();
-        foreach ($orders as $order) {
-            $items = json_decode($order->content);
-        foreach ($items as $item) {
-            increase($item);
-        }
-            $order->status = 5;
-            $order->save();
-        }
-    })->everyMinute();
+            $orders = Order::where('status', 1)->where('created_at','<',now()->subMinutes(10))->get();
+            foreach ($orders as $order) {
+                $items = json_decode($order->content);
+                foreach ($items as $item) {
+                    increase($item);
+                }
+                $order->status = 5;
+                $order->save();
+            }
+        })->everyMinute();
     }
 
     /**

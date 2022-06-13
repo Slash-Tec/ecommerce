@@ -11,7 +11,7 @@ class AddCartItemSize extends Component
 {
 
     public $product;
-    public $size_id;
+    public $size_id = "";
     public $colors = [];
     public $qty = 1;
     public $quantity = 0;

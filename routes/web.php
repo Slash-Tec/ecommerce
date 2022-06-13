@@ -1,10 +1,10 @@
 <?php
+
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\WelcomeController;
-use App\Http\Livewire\Admin\EditProduct;
 use App\Http\Livewire\CreateOrder;
 use App\Http\Livewire\PaymentOrder;
 use App\Http\Livewire\ShoppingCart;
@@ -21,16 +21,20 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', WelcomeController::class);
+
 Route::get('categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
+
 Route::get('products/{product}', [ProductsController::class, 'show'])->name('products.show');
+
 Route::get('/deletecart', function () {
     \Cart::destroy();
 });
+
 Route::get('shopping-cart', ShoppingCart::class)->name('shopping-cart');
 
 Route::get('search', SearchController::class)->name('search');
-
 
 Route::middleware(['auth'])->group(function (){
     Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
@@ -39,14 +43,7 @@ Route::middleware(['auth'])->group(function (){
     Route::get('orders/{order}/payment', PaymentOrder::class)->name('orders.payment');
 });
 
-Route::get('prueba', function () {
-    return Order::where('status', 1)->where('created_at','<',now()->subMinutes(10))->get();
-});
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
-Route::get('products/{product}/edit', EditProduct::class)->name('admin.products.edit');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

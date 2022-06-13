@@ -25,33 +25,33 @@
         </x-slot>
     </x-jet-form-section>
     <x-jet-action-section>
-    <x-slot name="title">
-    Lista de Departamentos
-    </x-slot>
-    <x-slot name="description">
-    Aquí encontrará todas los departamentos
-    </x-slot>
+        <x-slot name="title">
+            Lista de Departamentos
+        </x-slot>
+        <x-slot name="description">
+            Aquí encontrará todas los departamentos
+        </x-slot>
         <x-slot name="content">
             <table class="text-gray-600">
                 <thead class="border-b border-gray-300">
-                    <tr class="text-left">
+                <tr class="text-left">
                     <th class="py-2 w-full">Nombre</th>
                     <th class="py-2">Acción</th>
-                    </tr>
+                </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-300">
                 @foreach ($departments as $department)
                     <tr>
                         <td class="py-2">
                             <a href="{{route('admin.departments.show', $department)}}" class="uppercase underline hover:text-blue-600">
-                            {{$department->name}}
+                                {{$department->name}}
                             </a>
                         </td>
                         <td class="py-2">
-                        <div class="flex divide-x divide-gray-300 font-semibold">
-                            <a class="pr-2 hover:text-blue-600 cursor-pointer" wire:click="edit({{$department}})">Editar</a>
-                            <a class="pl-2 hover:text-red-600 cursor-pointer" wire:click="$emit('deleteDepartment', {{$department->id}})">Eliminar</a>
-                        </div>
+                            <div class="flex divide-x divide-gray-300 font-semibold">
+                                <a class="pr-2 hover:text-blue-600 cursor-pointer" wire:click="edit({{$department}})">Editar</a>
+                                <a class="pl-2 hover:text-red-600 cursor-pointer" wire:click="$emit('deleteDepartment', {{$department->id}})">Eliminar</a>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
@@ -81,27 +81,27 @@
         </x-slot>
     </x-jet-dialog-modal>
     @push('scripts')
-    <script>
-    Livewire.on('deleteDepartment', departmentId => {
-    Swal.fire({
-    title: 'Are you sure?',
-    text: "You won't be able to revert this!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-    if (result.isConfirmed) {
-    Livewire.emitTo('admin.department-component', 'delete', departmentId)
-    Swal.fire(
-    'Deleted!',
-    'Your file has been deleted.',
-    'success'
-    )
-    }
-    })
-    });
-    </script>
+        <script>
+            Livewire.on('deleteDepartment', departmentId => {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Livewire.emitTo('admin.department-component', 'delete', departmentId)
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                    }
+                })
+            });
+        </script>
     @endpush
 </div>
