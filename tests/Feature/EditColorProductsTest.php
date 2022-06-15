@@ -28,7 +28,7 @@ class EditColorProductsTest extends TestCase
             ->call('save');
         $this->assertDatabaseHas('colors', ['name' => $color->name]);
         $this->assertDatabaseHas('color_product', ['color_id' => $color->id, 'product_id' => $product->id, 'quantity' => 2]);
-    }
+    } 
 
     /** @test */
     public function the_quantity_is_required()
