@@ -2,6 +2,12 @@
     <p class="text-gray-700 mb-4">
         <span class="font-semibold text-lg">Stock disponible:</span> {{$quantity}}
     </p>
+    <p class="text-gray-700 mb-4">
+        <span class="font-semibold text-lg">Stock solicitado:</span> {{ count(session('cart')) }}
+    </p>
+    <p class="text-gray-700 mb-4">
+        <span class="font-semibold text-lg">Stock vendido:</span> {{$quantity - 40}}
+    </p>
     <div class="flex">
         <div class="mr-4">
             <x-jet-secondary-button disabled
