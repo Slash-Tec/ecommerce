@@ -17,15 +17,12 @@ class CreateSubcategoriesTable extends Migration
             $table->id();
 
             $table->string('name');
-            //$table->string('image');
-            $table->string('images')->nullable();
-
             $table->string('slug');
-
             $table->boolean('color')->default(false);
             $table->boolean('size')->default(false);
 
-            $table->foreignId('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreignId('category_id')->references('id')->on('categories')
+                ->onDelete('cascade');
 
             $table->timestamps();
         });

@@ -14,21 +14,46 @@ use Livewire\Component;
 
 class EditProduct extends Component
 {
+
     protected $listeners = ['refreshProduct', 'delete'];
 
     protected $rules = [
         'category_id' => 'required',
-        'subcategory_id' => 'required',
-        'name' => 'required',
-        'slug' => 'required|unique:products',
-        'description' => 'required',
-        'brand_id' => 'required',
-        'price' => 'required',
+        'product.subcategory_id' => 'required',
+        'product.name' => 'required',
+        'product.slug' => 'required|unique:products',
+        'product.description' => 'required',
+        'product.brand_id' => 'required',
+        'product.price' => 'required',
         'product.quantity' => 'numeric',
     ];
 
     public $product, $categories, $subcategories, $brands;
     public $category_id;
+
+    public function getSubcategoryProperty()
+    {
+        return Subcategory::find($this->product->subcategory_id);
+    }
+
+    public function updatedCategoryId($value)
+    {
+        $this->subcategories = Subcategory::where('category_id', $value)->get();
+        $this->brands = Brand::whereHas('categories', function(Builder $query) use ($value) {
+            $query->where('category_id', $value);
+        })->get();
+        $this->product->subcategory_id = '';
+        $this->product->brand_id = '';
+    }
+
+    public function refreshProduct()
+    {
+        $this->product = $this->product->fresh();
+    }
+
+    public function updatedProductName($value){
+        $this->product->slug = Str::slug($value);
+    }
 
     public function mount(Product $product)
     {
@@ -44,23 +69,18 @@ class EditProduct extends Component
         })->get();
     }
 
+    public function deleteImage(Image $image)
+    {
+        Storage::disk('public')->delete([$image->url]);
+        $image->delete();
+        $this->product = $this->product->fresh();
+    }
+
     public function render()
     {
         return view('livewire.admin.edit-product')->layout('layouts.admin');
     }
-    public function updatedCategoryId($value)
-    {
-        $this->subcategories = Subcategory::where('category_id', $value)->get();
-        $this->brands = Brand::whereHas('categories', function(Builder $query) use ($value) {
-            $query->where('category_id', $value);
-        })->get();
-        $this->product->subcategory_id = '';
-        $this->product->brand_id = '';
-    }
 
-    public function updatedProductName($value){
-        $this->product->slug = Str::slug($value);
-    }
     public function save()
     {
         $this->rules['product.slug'] = 'required|unique:products,slug,' . $this->product->id;
@@ -73,16 +93,7 @@ class EditProduct extends Component
         $this->product->save();
         $this->emit('saved');
     }
-    public function deleteImage(Image $image)
-    {
-        Storage::disk('public')->delete([$image->url]);
-        $image->delete();
-        $this->product = $this->product->fresh();
-    }
-    public function refreshProduct()
-    {
-        $this->product = $this->product->fresh();
-    }
+
     public function delete(){
         $images = $this->product->images;
         foreach ($images as $image) {

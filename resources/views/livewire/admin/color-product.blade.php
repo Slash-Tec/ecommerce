@@ -7,24 +7,24 @@
             <div class="grid grid-cols-6 gap-6">
                 @foreach ($colors as $color)
                     <label>
-                        <input type="radio" name="color_id" wire:model.defer="color_id" value="{{ $color->id }}">
+                        <input type="radio" class="colorProduct" name="color_id" wire:model.defer="color_id" value="{{ $color->id }}">
                         <span class="ml-2 text-gray-700 capitalize">
 {{ __(ucfirst($color->name)) }}
 </span>
                     </label>
                 @endforeach
             </div>
-            <x-jet-input-error for="color_id" />
+            <x-jet-input-error for="color_id" id="errorColor"/>
         </div>
         <div>
             <x-jet-label>
                 Cantidad
             </x-jet-label>
-            <x-jet-input type="number" wire:model.defer="quantity" placeholder="Ingrese una cantidad" class="w-full" />
-            <x-jet-input-error for="quantity" />
+            <x-jet-input type="number" wire:model.defer="quantity" placeholder="Ingrese una cantidad" class="w-full quantityColor" />
+            <x-jet-input-error for="quantity" id="errorQuantity" />
         </div>
         <div class="flex justify-end items-center mt-4">
-        <x-jet-action-message class="mr-3" on="saved">
+        <x-jet-action-message class="mr-3" on="saved" id="agregado">
             Agregado
         </x-jet-action-message>
         <x-jet-button wire:loading.attr="disabled" wire:target="save" wire:click="save">
@@ -64,7 +64,8 @@
                             wire:target="edit({{ $color->pivot->id }})">
                             Actualizar
                         </x-jet-secondary-button>
-                        <x-jet-danger-button wire:click="$emit('deletePivot', {{ $color->pivot->id }})">
+                        <x-jet-danger-button
+                            wire:click="$emit('deleteColor', {{ $color->pivot->id }})">
                             Eliminar
                         </x-jet-danger-button>
                     </td>
@@ -72,8 +73,8 @@
             @endforeach
             </tbody>
         </table>
+        @endif
     </div>
-    @endif
     <x-jet-dialog-modal wire:model="open">
         <x-slot name="title">
             Editar colores
@@ -83,7 +84,7 @@
                 <x-jet-label>
                     Color
                 </x-jet-label>
-                <select class="form-control w-full"wire:model="pivot_color_id">
+                <select class="form-control w-full" wire:model="pivot_color_id">
                     <option value="">Seleccione un color</option>
                     @foreach ($colors as $color)
                         <option value="{{ $color->id }}">{{ __(ucfirst($color->name)) }}</option>
@@ -94,7 +95,10 @@
                 <x-jet-label>
                     Cantidad
                 </x-jet-label>
-                <x-jet-input class="w-full" wire:model="pivot_quantity" type="number" placeholder="Ingrese una cantidad" />
+                <x-jet-input
+                    class="w-full"
+                    wire:model="pivot_quantity" type="number"
+                    placeholder="Ingrese una cantidad" />
             </div>
         </x-slot>
         <x-slot name="footer">
@@ -107,27 +111,4 @@
         </x-slot>
         </x-jet-dialog-modal>
 </div>
-@push('scripts')
-    <script>
-        Livewire.on('deletePivot', pivot => {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Livewire.emitTo('admin.color-product', 'delete', pivot);
-                    Swal.fire(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                    )
-                }
-            })
-        })
-    </script>
-@endpush
+

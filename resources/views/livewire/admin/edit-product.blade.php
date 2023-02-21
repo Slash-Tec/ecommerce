@@ -20,7 +20,7 @@
           id="my-awesome-dropzone"></form>
 </div>
     @if ($product->images->count())
-        <section class="bg-white shadow-xl rounded-lg p-6 mb-4">
+        <section class="bg-white shadow-xl rounded-lg">
             <h1 class="text-2xl text-center font-semibold mb-2">Imagenes del producto</h1>
             <ul class="flex flex-wrap">
                 @foreach ($product->images as $image)
@@ -41,7 +41,7 @@
     <div class="grid grid-cols-2 gap-6 mb-4">
         <div>
             <x-jet-label value="Categorías" />
-            <select class="w-full form-control" wire:model="category_id">
+            <select name="category" class="w-full form-control" wire:model="category_id">
                 <option value="" selected disabled>Seleccione una categoría</option>
                 @foreach($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -51,7 +51,7 @@
         </div>
         <div>
             <x-jet-label value="Subcategorías" />
-            <select class="w-full form-control" wire:model="product.subcategory_id">
+            <select name="subcategory" class="w-full form-control" wire:model="product.subcategory_id">
                 <option value="" selected disabled>Seleccione una subcategoría</option>
                 @foreach($subcategories as $subcategory)
                     <option value="{{ $subcategory->id }}">{{ $subcategory->name }}</option>
@@ -64,26 +64,27 @@
         <div class="mb-4">
             <x-jet-label value="Nombre" />
             <x-jet-input type="text"
-                         class="w-full"
+                         class="w-full name"
                          wire:model="product.name"
                          placeholder="Ingrese el nombre del producto" />
-            <x-jet-input-error for="product.name" />
+            <x-jet-input-error for="product.name" id="product" />
         </div>
     </div>
     <div class="mb-4">
         <x-jet-label value="Slug" />
-        <x-jet-input type="text"
+        <x-jet-input type="text" id="slug"
                      disabled
                      wire:model="product.slug"
                      class="w-full bg-gray-200"
                      placeholder="Ingrese el slug del producto" />
-        <x-jet-input-error for="product.slug" />
+        <x-jet-input-error for="product.slug" class="slug" />
     </div>
     <div class="mb-4">
         <div wire:ignore>
             <x-jet-label value="Descripción" />
-            <textarea class="w-full form-control" rows="4"
+            <textarea class="w-full form-control ck description" rows="4"
                       wire:model="product.description"
+                      name="description"
                       x-data
                       x-init="ClassicEditor.create($refs.miEditor)
 .then(function(editor){
@@ -97,12 +98,12 @@ console.error( error );
                       x-ref="miEditor">
 </textarea>
         </div>
-        <x-jet-input-error for="product.description" />
+        <x-jet-input-error for="product.description" class="description" />
     </div>
     <div class="grid grid-cols-2 gap-6 mb-4">
         <div class="mb-4">
             <x-jet-label value="Marca" />
-            <select class="form-control w-full" wire:model="product.brand_id">
+            <select class="form-control w-full" name="brand" wire:model="product.brand_id">
                 <option value="" selected disabled>Seleccione una marca</option>
                 @foreach ($brands as $brand)
                     <option value="{{$brand->id}}">{{$brand->name}}</option>
@@ -112,26 +113,27 @@ console.error( error );
         </div>
         <div>
             <x-jet-label value="Precio" />
-            <x-jet-input
+            <x-jet-input name="price"
                 wire:model="product.price"
                 type="number"
                 class="w-full"
                 step=".01" />
-            <x-jet-input-error for="product.price" />
+            <x-jet-input-error for="product.price" class="priceError" />
         </div>
     </div>
     @if ($this->subcategory && !$this->subcategory->color && !$this->subcategory->size)
         <div>
             <x-jet-label value="Cantidad" />
-            <x-jet-input
+            <x-jet-input id="quantity"
                 wire:model="product.quantity"
                 type="number"
-                class="w-full" />
-            <x-jet-input-error for="product.quantity" />
+                class="w-full quantity"
+                name="quantity"/>
+            <x-jet-input-error for="product.quantity" class="quantityError" />
         </div>
     @endif
         <div class="flex justify-end items-center mt-4">
-            <x-jet-action-message class="mr-3" on="saved">
+            <x-jet-action-message class="mr-3" on="saved" id="actualizado">
                 Actualizado
             </x-jet-action-message>
         <x-jet-button
@@ -143,34 +145,36 @@ console.error( error );
         </x-jet-button>
     </div>
     </div>
-</div>
-@if($this->subcategory)
-    @if($this->subcategory->size)
-        @livewire('admin.size-product', ['product' => $product], key('size-product-' . $product->id))
-    @elseif($this->subcategory->color)
-        @livewire('admin.color-product', ['product' => $product], key('color-product-' . $product->id))
+    @if($this->subcategory)
+        @if($this->subcategory->size)
+            @livewire('admin.size-product', ['product' => $product], key('size-product-' . $product->id))
+        @elseif($this->subcategory->color)
+            @livewire('admin.color-product', ['product' => $product], key('color-product-' . $product->id))
+        @endif
     @endif
-@endif
+</div>
+
 
 @push('scripts')
     <script>
-        Dropzone.options.myAwesomeDropzone = {
-            headers: {
-                'X-CSRF-TOKEN': "{{ csrf_token() }}"
-            },
-            dictDefaultMessage: "Mueva una imagen al recuadro",
-            acceptedFiles: 'image/*',
-            paramName: "file", // The name that will be used to transfer the file
-            maxFilesize: 2, // MB
-            complete: function(file) {
-                this.removeFile(file);
-            },
-            queuecomplete: function() {
-                Livewire.emit('refreshProduct');
-            }
-        };
-    </script>
-    <script>
+        document.addEventListener("DOMContentLoaded", () =>{
+            Dropzone.options.myAwesomeDropzone = {
+                headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                },
+                dictDefaultMessage: "Mueva una imagen al recuadro",
+                acceptedFiles: 'image/*',
+                paramName: "file", // The name that will be used to transfer the file
+                maxFilesize: 2, // MB
+                complete: function(file) {
+                    this.removeFile(file);
+                },
+                queuecomplete: function() {
+                    Livewire.emit('refreshProduct');
+                }
+            };
+        });
+
         Livewire.on('deleteSize', sizeId => {
             Swal.fire({
                 title: 'Are you sure?',
@@ -189,8 +193,8 @@ console.error( error );
                         'success'
                     )
                 }
-            })
-        })
+            });
+        });
         Livewire.on('errorSize', mensaje => {
             Swal.fire({
                 icon: 'error',
@@ -198,9 +202,7 @@ console.error( error );
                 text: mensaje,
             }) /* */
         });
-    </script>
 
-    <script>
         Livewire.on('deleteColor', pivot => {
             Swal.fire({
                 title: 'Are you sure?',
@@ -219,15 +221,14 @@ console.error( error );
                         'success'
                     )
                 }
-            })
-        })
-    </script>
-    <script>
+            });
+        });
         Livewire.on('deleteProduct', () => {
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
                 icon: 'warning',
+                timer: 20000,
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
@@ -241,8 +242,8 @@ console.error( error );
                         'success'
                     )
                 }
-            })
-        })
+            });
+        });
     </script>
 @endpush
 </div>

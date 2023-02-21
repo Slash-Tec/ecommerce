@@ -1,32 +1,38 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 require('./bootstrap');
 
-window.Vue = require('vue').default;
+import Alpine from 'alpinejs';
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
+window.Alpine = Alpine;
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+Alpine.start();
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+import swal from 'sweetalert2';
+window.Swal = swal;
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic/build/ckeditor';
+var ready = (callback) => {
+    if (document.readyState != "loading") callback();
+    else document.addEventListener("DOMContentLoaded", callback);
+}
 
-const app = new Vue({
-    el: '#app',
+ready(() => {
+    ClassicEditor
+        .create(document.querySelector('.ck'))
+        .catch(error => {
+            console.log(`error`, error)
+        });
 });
+
+const {Dropzone} = require("dropzone");
+import '@fortawesome/fontawesome-free/js/fontawesome'
+import '@fortawesome/fontawesome-free/js/solid'
+import '@fortawesome/fontawesome-free/js/regular'
+import '@fortawesome/fontawesome-free/js/brands'
+import 'glider-js/glider.min'
+window.$ = window.jQuery = require('jquery');
+import 'flexslider/jquery.flexslider-min'
+import 'flexslider/flexslider.css';
+var flatpickr = require("flatpickr");
+require("flatpickr/dist/flatpickr.min.css");
+
+

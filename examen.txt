@@ -1,0 +1,15 @@
+Tests que utilizan el CreateData:
+- only_a_logged_user_can_create_an_order
+- the_available_stock_of_a_color_product_changes
+- the_size_color_products_details_are_shown
+- it_shows_the_login_and_register_options
+- it_is_not_possible_to_add_size_color_products_that_are_out_of_stock
+- it_shows_the_categories
+- my_orders_work_correctly
+- it_hides_the_unchecked_columns
+- it_shows_at_least_5_products_from_a_category
+- it_is_not_possible_to_add_color_products_that_are_out_of_stock
+
+En el ejercicio 4 he creado la carpeta llamada "Filters" en el directorio "app" y he introducido las clases al ya tener
+esta metodología implementada.
+

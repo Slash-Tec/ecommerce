@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class ColorSize extends Model
 {
     use HasFactory;
-
     protected $table = 'color_size';
 
     public function color()

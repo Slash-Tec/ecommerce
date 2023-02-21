@@ -2,9 +2,8 @@
 
 namespace App\Listeners;
 
-
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Auth\Events\Login;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 

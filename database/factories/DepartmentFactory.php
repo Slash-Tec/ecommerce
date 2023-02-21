@@ -14,20 +14,7 @@ class DepartmentFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->word(),
+            'name' => $this->faker->word()
         ];
     }
-    /**
-    public function run()
-    {
-    Department::factory(8)->create()->each(function(Department $department){
-        City::factory(8)->create([
-            'department_id' => $department->id
-        ])->each(function(City $city){
-            District::factory(8)->create([
-                'city_id' => $city->id
-                ]);
-            });
-        });
-    }**/
 }

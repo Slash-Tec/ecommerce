@@ -13,10 +13,12 @@ class ColorProduct extends Component
         'quantity' => 'required|numeric'
     ];
 
+    protected $listeners = ['delete'];
+
     public $product, $colors;
     public $color_id, $quantity;
+    public $open = false;
     public $pivot, $pivot_color_id, $pivot_quantity;
-    public $open = true;
 
     public function mount()
     {
@@ -29,28 +31,7 @@ class ColorProduct extends Component
 
         return view('livewire.admin.color-product', compact('productColors'));
     }
-    public function save(){
-        $this->validate();
 
-        $pivot = TbPivot::where('color_id', $this->color_id)
-            ->where('product_id', $this->product->id)
-            ->first();
-        if ($pivot) {
-            $pivot->quantity += $this->quantity;
-            $pivot->save();
-        } else {
-        $this->product->colors()->attach([
-            $this->color_id => [
-                'quantity' => $this->quantity
-            ]
-        ]);
-        }
-        $this->reset(['color_id', 'quantity']);
-
-        $this->emit('saved');
-
-        $this->product = $this->product->fresh();
-    }
     public function edit(TbPivot $pivot)
     {
         $this->open = true;
@@ -58,17 +39,36 @@ class ColorProduct extends Component
         $this->pivot_color_id = $pivot->color_id;
         $this->pivot_quantity = $pivot->quantity;
     }
+
     public function update()
     {
         $this->pivot->color_id = $this->pivot_color_id;
         $this->pivot->quantity = $this->pivot_quantity;
-
         $this->pivot->save();
-
         $this->product = $this->product->fresh();
-
         $this->open = false;
     }
+
+    public function save(){
+        $this->validate();
+        $pivot = TbPivot::where('color_id', $this->color_id)
+            ->where('product_id', $this->product->id)
+            ->first();
+        if ($pivot) {
+            $pivot->quantity += $this->quantity;
+            $pivot->save();
+        } else {
+            $this->product->colors()->attach([
+                $this->color_id => [
+                    'quantity' => $this->quantity
+                ]
+            ]);
+        }
+        $this->reset(['color_id', 'quantity']);
+        $this->emit('saved');
+        $this->product = $this->product->fresh();
+    }
+
     public function delete(TbPivot $pivot)
     {
         $pivot->delete();

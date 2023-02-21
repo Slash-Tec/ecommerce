@@ -12,17 +12,12 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-        <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('vendor/glider-js/glider.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('vendor/flex-slider/flexslider.css') }}">
 
         @livewireStyles
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
-        <script src="{{ asset('vendor/glider-js/glider.min.js') }}"></script>
-        <script src="{{ asset('vendor/flex-slider/node_modules/jquery/dist/jquery.js') }}"></script>
-        <script src="{{ asset('vendor/flex-slider/jquery.flexslider-min.js') }}"></script>
+
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />
@@ -40,25 +35,24 @@
 
         @livewireScripts
         <script>
-        function dropdown(){
-        return {
-        open: false,
-            show(){
-                if(this.open){
-                this.open = false;
-                document.getElementsByTagName('html')[0].style.overflow = 'auto'
-                }else{
-                this.open = true;
-                document.getElementsByTagName('html')[0].style.overflow = 'hidden'
+            function dropdown(){
+                return {
+                    open: false,
+                    show() {
+                        if ( this.open ) {
+                            this.open = false;
+                            document.getElementsByTagName('html')[0].style.overflow = 'auto'
+                        } else {
+                            this.open = true;
+                            document.getElementsByTagName('html')[0].style.overflow = 'hidden'
+                        }
+                    }, close() {
+                        this.open = false;
+                        document.getElementsByTagName('html')[0].style.overflow = 'auto'
+                    }
                 }
-            },
-            close(){
-            this.open = false;
-            document.getElementsByTagName('html')[0].style.overflow = 'auto'
             }
-        }
-        }
-</script>
-    @stack('scripts')
+        </script>
+        @stack('scripts')
     </body>
 </html>

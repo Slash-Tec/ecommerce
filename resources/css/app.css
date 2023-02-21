@@ -1,3 +1,7 @@
+@import 'dropzone/dist/dropzone.css';
+@import 'sweetalert2/dist/sweetalert2.css';
+@import 'glider-js/glider.min.css';
+@import "flatpickr/dist/flatpickr.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,13 +9,15 @@
     .container-menu {
         @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
     }
-        #navigation-menu{
+    #navigation-menu{
         height: calc(100vh - 4rem);
     }
     .navigation-link:hover .navigation-submenu{
         display: block !important;
     }
-    form-control{
-        @apply border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm;
+    .form-control{
+        @apply border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md
+        shadow-sm;
     }
 }
+

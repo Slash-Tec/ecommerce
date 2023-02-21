@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Filters\QueryFilter;
+use App\ProductQuery;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -40,6 +42,7 @@ class Product extends Model
     {
         return $this->morphMany(Image::class, 'imageable');
     }
+
     public function getStockAttribute(){
         if ($this->subcategory->size) {
             return ColorSize::whereHas('size.product', function(Builder $query){
@@ -52,5 +55,35 @@ class Product extends Model
         } else {
             return $this->quantity;
         }
+    }
+
+    public static function getQuantities()
+    {
+        $products = Product::with(['colors', 'sizes'])->get();
+        foreach ($products as $product) {
+            if($product->colors){
+            foreach ($product->colors as $color){
+                $product->quantity += $color->pivot->quantity;
+                foreach ($product->sizes as $size){
+                    foreach ($size->colors as $sizeColor)
+                    $product->quantity += $sizeColor->pivot->quantity;
+                }
+            }
+            } else{
+                return $products;
+            }
+        }
+
+        return $products;
+    }
+
+    public function newEloquentBuilder($query)
+    {
+        return new ProductQuery($query);
+    }
+
+    public function scopeFilterBy($query, QueryFilter $filters, array $data)
+    {
+        return $filters->applyto($query, $data);
     }
 }
