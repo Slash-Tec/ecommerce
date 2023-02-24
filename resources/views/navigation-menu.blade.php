@@ -24,10 +24,6 @@
                         Productos 2
                     </x-jet-nav-link>
 
-                    <!--<x-jet-nav-link href="{{ route('admin.index.2') }}" :active="request()->routeIs('admin.index.*')">
-                        Productos 2
-                    </x-jet-nav-link>-->
-
                     <x-jet-nav-link href="{{ route('admin.orders.index') }}" :active="request()->routeIs('admin.orders.*')">
                         Pedidos
                     </x-jet-nav-link>
@@ -175,9 +171,6 @@
             <x-jet-responsive-nav-link href="{{ route('admin.index.2') }}" :active="request()->routeIs('admin.index.*')">
                 Productos
             </x-jet-responsive-nav-link>
-            <!--<x-jet-responsive-nav-link href="{{ route('admin.index.2') }}" :active="request()->routeIs('admin.index.*')">
-                Productos
-            </x-jet-responsive-nav-link>-->
             <x-jet-responsive-nav-link href="{{ route('admin.orders.index') }}" :active="request()->routeIs('admin.orders.*')">
                 Pedidos
             </x-jet-responsive-nav-link>
