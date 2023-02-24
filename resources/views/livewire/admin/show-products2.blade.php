@@ -1,21 +1,12 @@
-<div>
-    <x-slot name="header">
-        <div class="flex items-center">
-            <h2 class="font-semibold text-xl text-gray-600 leading-tight">
-                Lista de productos
-            </h2>
-            <x-button-link class="ml-auto" href="{{route('admin.products.create')}}">
-                Agregar producto
-            </x-button-link>
-        </div>
-    </x-slot>
-    <div class="p-4">
+<div class="p-4">
         <div class="flex space-x-3">
         <select wire:model="per_page" class="bg-gray-200" name="paginate">
-            <option value="10">Mostrar 10</option>
-            <option value="15">Mostrar 15</option>
-            <option value="20">Mostrar 20</option>
-            <option value="50">Mostrar 50</option>
+                <option value="5">Mostrar 5</option>
+                <option value="10">Mostrar 10</option>
+                <option value="15">Mostrar 15</option>
+                <option value="20">Mostrar 20</option>
+                <option value="50">Mostrar 50</option>
+                <option value="100">Mostrar 100</option>
         </select>
 <div class="flex inline-flex">
                 <x-jet-dropdown width="52">
@@ -269,5 +260,3 @@
     @endpush
 </div>
 </div>
-
-
