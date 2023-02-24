@@ -142,4 +142,4 @@ class UIFiltersTest extends DuskTestCase
                 ->screenshot('paginate-test');
         });
     }
-}
+} 

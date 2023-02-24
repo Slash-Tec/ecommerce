@@ -334,4 +334,4 @@ class SortTest extends TestCase
             ->assertOk()
             ->assertSeeInOrder([$product1->name,$product->name]);
     }
-} 
+}  

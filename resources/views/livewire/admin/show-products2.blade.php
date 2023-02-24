@@ -1,4 +1,4 @@
-<div class="p-4">
+<div class="p-4">  
         <div class="flex space-x-3">
         <select wire:model="per_page" class="bg-gray-200" name="paginate">
                 <option value="5">Mostrar 5</option>

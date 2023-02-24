@@ -257,4 +257,4 @@ class FilterTest extends TestCase
             ->assertDontSee($product1->name);
     }
 
-}
+} 
