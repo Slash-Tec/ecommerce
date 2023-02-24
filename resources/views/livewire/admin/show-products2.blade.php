@@ -14,7 +14,7 @@
                         <button
                             class="outline-none focus:outline-none border px-3 py-1 bg-white rounded-l flex items-center min-w-32 h-10 form-control">
                             <span class="pr-1 pl-1 flex-1">Mostrar/Ocultar columnas</span>
-                            <span>
+                            <span> 
                            <svg class="ml-2 w-4 h-4 opacity-75" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

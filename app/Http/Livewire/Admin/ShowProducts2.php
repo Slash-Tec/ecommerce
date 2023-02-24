@@ -128,7 +128,7 @@ class ShowProducts2 extends Component
     public function updatingSortColumn()
     {
         $this->resetPage();
-    }
+    } 
 
     public function updatingSortDirection()
     {
