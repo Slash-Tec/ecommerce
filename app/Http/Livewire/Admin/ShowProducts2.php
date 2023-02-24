@@ -22,7 +22,7 @@ class ShowProducts2 extends Component
     public $sizes;
     public $search;
     public $per_page = 15;
-    public $columns = ['Id','Nombre', 'Slug', 'Descripción','Categoría','Estado','Stock','Precio','Subcategoría','Marca','Fecha creación','Colores', 'Tallas'];
+    public $columns = ['Id','Nombre','Slug','Descripción','Categoría','Estado','Stock','Precio','Subcategoría','Marca','Fecha creación','Colores','Tallas'];
     public $selectedColumns = [];
     public $category = 'all';
     public $categories;
@@ -168,7 +168,7 @@ class ShowProducts2 extends Component
 
     public function showColumn($column)
     {
-        return in_array($column, $this->selectedColumns);
+        return in_array( $column, $this->selectedColumns);
     }
 
     public function changeOrder($order)
@@ -178,7 +178,7 @@ class ShowProducts2 extends Component
 
     protected function getProducts(ProductFilter $productFilter)
     {
-        $products = Product::query()->filterBy($productFilter, array_merge(
+        $products = Product::query()->filterBy($productFilter,array_merge(
                 ['search' => $this->search,
                     'from' =>  $this->from,
                     'to' =>  $this->to,

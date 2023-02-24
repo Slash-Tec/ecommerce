@@ -40,7 +40,7 @@
             <div x-show="open" x-cloak>
         @include('shared._filters')
         </div>
-        @if($products->count())
+        @if($products->count()) 
             <table class="min-w-full divide-y divide-gray-200 overflow-x-auto block whitespace-nowrap">
                 <thead class="bg-gray-50">
                 <tr>
