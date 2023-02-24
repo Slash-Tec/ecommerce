@@ -176,7 +176,7 @@ class ShowProducts2 extends Component
         $this->order = $order;
     }
 
-    protected function getProducts(ProductFilter $productFilter)
+    protected function getProducts(ProductFilter $productFilter) 
     {
         $products = Product::query()->filterBy($productFilter,array_merge(
                 ['search' => $this->search,

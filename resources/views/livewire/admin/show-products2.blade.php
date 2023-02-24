@@ -36,7 +36,7 @@
         </div>
         </div>
         <div x-data="{ open: false }" >
-            <b><button @click="open = !open" class="mt-4 mb-2 form-control bg-blue-400 p-2">Filtros</button></b>
+            <b><button @click="open = !open" class="mt-4 mb-2 form-control bg-blue-400 p-2">Filtros</button></b> 
             <div x-show="open" x-cloak>
         @include('shared._filters')
         </div>
