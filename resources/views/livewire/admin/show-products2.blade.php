@@ -44,7 +44,7 @@
             <table class="min-w-full divide-y divide-gray-200 overflow-x-auto block whitespace-nowrap">
                 <thead class="bg-gray-50">
                 <tr>
-                    @if($this->showColumn('Id'))
+                    @if($this->showColumn('Id')) 
                         <th scope="col" wire:click="sort('products.id')" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                            <button>ID</button>
                         </th>
@@ -116,7 +116,7 @@
                 </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                @foreach($products as $product)
+                @foreach($products as $product) 
                     <tr>
                         @if($this->showColumn('Id'))
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">

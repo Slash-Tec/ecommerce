@@ -135,11 +135,11 @@ class ShowProducts2 extends Component
         $this->resetPage();
     }
 
-    public function sort($column)
+    public function sort($column) 
     {
         $this->sortColumn = $column;
         $this->sortDirection = $this->sortDirection == 'asc' ? 'desc' : 'asc';
-    }
+    } 
 
     public function updatingCategory()
     {
